@@ -1,17 +1,16 @@
-FROM debian:buster
+FROM debian:bullseye
 
-# INSTALL MARIADB SERVER
-RUN	apt update -y
-RUN apt upgrade -y
-RUN apt-get install -y mariadb-server
+# Install mariadb
+RUN apt update -y && apt upgrade -y
+RUN apt install -y mariadb-server curl systemd
 
-# REPLACE MARIADB CONFIG FILE WITH OUR CONFIG FILE
-COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+# Replace config file
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-# COPY THE LAUNCH SCRIPT INTO usr/local/bin AND RUN IT
-COPY ./tools/mariaDB.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/mariaDB.sh
-ENTRYPOINT ["/usr/local/bin/mariaDB.sh"]
+# Expose port 3306
+EXPOSE 3306
 
-# RUN THE CONTAINER
-CMD ["mysqld", "--bind-address=0.0.0.0"]
+# Run the launch script
+COPY tools/mariadb_script.sh /usr/local/bin/mariadb_script.sh
+RUN chmod +x /usr/local/bin/mariadb_script.sh
+CMD ["/usr/local/bin/mariadb_script.sh"]

@@ -1,31 +1,34 @@
-FROM debian:buster
+FROM debian:bullseye
 
-# INSTALL WGET, PHP AND MARIADB CLIENT
-RUN apt update -y
-RUN apt upgrade -y
-RUN apt install -y wget php7.3 php-fpm php-mysql mariadb-client
+# Install php, wget and mariaDB client
+RUN apt update -y && apt upgrade -y
+RUN apt install -y php7.4 php-mysql php-fpm php-intl php-curl mariadb-client wget
 
-# INSTALL WORDPRESS USING WGET (LAST VERSION) IN /var/www
-RUN wget https://fr.wordpress.org/wordpress-6.5.3-fr_FR.tar.gz -P /var/www
+# Download wordpress and place its folder in /var/www/html
+RUN wget https://wordpress.org/wordpress-6.4.3.tar.gz -P /var/www
+RUN tar -xvf /var/www/wordpress-6.4.3.tar.gz -C /var/www
+RUN rm -rf /var/www/wordpress-6.4.3.tar.gz
+RUN mv /var/www/wordpress /var/www/html
 
-# CREATE THE WORDPRESS DIRECTORY AND REMOVE THE TAR FILE
-RUN cd /var/www && tar -xzf wordpress-6.5.3-fr_FR.tar.gz && rm wordpress-6.5.3-fr_FR.tar.gz
+# Grant folder access to root
+RUN chown -R root:root /var/www/html
 
-# GIVE WRITTING RIGHTS TO ROOT
-RUN	chown -R root:root /var/www/wordpress
-
-# REPLACE PHP CONFIG FILE WITH OUR CONFIG FILE
-COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
-
-# INSTALL CLI (TEXT INTERFACE) TO CONFIG WORDPRESS
+# Install WP CLI
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-# RUN SCRIPT TO CONFIGURE WORDPRESS
-COPY ./tools/auto_config.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/auto_config.sh
-ENTRYPOINT [ "/usr/local/bin/auto_config.sh" ]
+# Create /run/php/ directory
+RUN mkdir /run/php/
+RUN chmod 755 /run/php
 
-# RUN php-fpm
-CMD [ "/usr/sbin/php-fpm7.3", "-F" ]
+# Expose port 9000
+EXPOSE 9000
+
+# Replace wordpress config file
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+
+# Run wordpress launch script
+COPY tools/wordpress_script.sh /usr/local/bin/wordpress_script.sh
+RUN chmod +x /usr/local/bin/wordpress_script.sh
+CMD ["/usr/local/bin/wordpress_script.sh"]
