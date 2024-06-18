@@ -1,7 +1,7 @@
 COMPOSE	=	@docker-compose -f ./srcs/docker-compose.yml
 
 all:
-	@mkdir -p /home/$(USER)/data/mariadb /home/$(USER)/data/wordpress
+	@sudo mkdir -p /home/$(USER)/data/mariadb /home/$(USER)/data/wordpress
 	${COMPOSE} up
 
 stop:

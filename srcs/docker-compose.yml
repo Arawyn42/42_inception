@@ -3,7 +3,7 @@ version : '3.7'
 services:
     nginx:
         container_name: nginx
-        image: nginx:42
+        image: nginx
         build: requirements/nginx
         depends_on:
             - wordpress
@@ -19,7 +19,7 @@ services:
 
     mariadb:
         container_name: mariadb
-        image: mariadb:42
+        image: mariadb
         build: requirements/mariadb
         env_file:
             - .env
@@ -31,7 +31,7 @@ services:
 
     wordpress:
         container_name: wordpress
-        image: wordpress:6.4.3
+        image: wordpress
         build: requirements/wordpress
         depends_on:
             - mariadb
@@ -48,13 +48,13 @@ volumes:
         driver: local
         driver_opts:
             type: none
-            device: '/home/arawyn/data/mariadb'
+            device: '/home/drenassi/data/mariadb'
             o: bind
     wordpress:
         driver: local
         driver_opts:
             type: none
-            device: '/home/arawyn/data/wordpress'
+            device: '/home/drenassi/data/wordpress'
             o: bind
 
 networks:
