@@ -15,6 +15,7 @@ Here we had to create 3 containers: **nginx**, **mariaDB** and **wordpress**. Th
 To learn this project, I used a tutorial that I found on the [grademe website](https://tuto.grademe.fr/inception/).
 
 I did this project without any bonus. To see what the bonuses were, refer to the subject.
+<br><br>
 
 ## <div align="center">🔓 Prerequisites</div>
 You can modify the .env file to choose your IDs and passwords for the site and the databases.
@@ -28,6 +29,7 @@ Now you need to modify the docker-compose.yml file:
 At line 51, replace `device: '/home/drenassi/data/mariadb'` with `device: '/home/YOUR_USERNAME/data/mariadb'`.
 
 At line 57, replace `device: '/home/drenassi/data/wordpress'` with `device: '/home/YOUR_USERNAME/data/wordpress'`.
+<br><br>
 
 ## <div align="center">💻 Usage</div>
 Clone the repository and enter in it:
