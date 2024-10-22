@@ -1,11 +1,13 @@
-# <div align="center">⚙️ Inception (a [42](https://42perpignan.fr/) project) ⚙️</div>
+<div align="center">
+  <h1>⚙️ Inception (a <a href="https://42perpignan.fr/">42</a> project) ⚙️</h1>
+  <p><b>Subject:</b> <a href="ressources/en.subject.pdf">en.subject.pdf</a></p>
+</div>
+<div align="center">
+  <h2>✅ Grade</h2>
+  <img src="ressources/grade.png" alt="Grade">
+</div><br>
 
-Subject : [en.subject.pdf](en.subject.pdf)
-
-## Grade
-[![drenassi's 42 Inception Score](https://badge42.coday.fr/api/v2/clph33bao098101t6vnzqbe17/project/3663763)](https://github.com/Coday-meric/badge42)
-
-## Introduction
+## <div align="center">📄 Introduction</div>
 This project is about using **docker** and **docker compose**. We learned how to create and write a Dockerfile, and how to link different docker containers using docker compose.
 
 Here we had to create 3 containers: **nginx**, **mariaDB** and **wordpress**. Then we needed to link them together with a docker-compose.yml file in order to display a wordpress page using a database.
@@ -14,7 +16,7 @@ To learn this project, I used a tutorial that I found on the [grademe website](h
 
 I did this project without any bonus. To see what the bonuses were, refer to the subject.
 
-## Prerequisites
+## <div align="center">🔓 Prerequisites</div>
 You can modify the .env file to choose your IDs and passwords for the site and the databases.
 
 Replace the USER variable with your computer's username. For example, if your username is bob, replace `USER=drenassi` with `USER=bob`.
@@ -27,7 +29,7 @@ At line 51, replace `device: '/home/drenassi/data/mariadb'` with `device: '/home
 
 At line 57, replace `device: '/home/drenassi/data/wordpress'` with `device: '/home/YOUR_USERNAME/data/wordpress'`.
 
-## Usage
+## <div align="center">💻 Usage</div>
 Clone the repository and enter in it:
 ```sh
 git clone https://github.com/Arawyn42/42_inception.git && cd 42_inception
